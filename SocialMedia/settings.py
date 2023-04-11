@@ -1,3 +1,4 @@
+#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
 """
 Django settings for SocialMedia project.
 
