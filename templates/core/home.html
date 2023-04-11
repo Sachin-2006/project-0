@@ -9,6 +9,21 @@
 Home!!<br>
 
 
-<a href="/signup">va Arunachallam!!!</a>
+
+{% if user.is_authenticated %}
+{{user}}<br>
+<a href="/logout">varuta mame durrr!!</a>
+{%else%}
+<a href="/signup">va Arunachallam!!!</a><br>
+<a href="{% url 'logout' %}">thirumavaa Arunachallam!!</a><br>
+{% endif %}
+
+messages<br>
+{% for i in messages %}
+{{i}}<br>
+
+
+{% endfor %}
+
 </body>
 </html>
