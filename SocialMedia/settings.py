@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'post',
+    'core',
+    'userauth',
 ]
 
 MIDDLEWARE = [
@@ -118,11 +122,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-MEDIA_ROOT = '/images/'
+MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
     BASE_DIR/"static",
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,"db_images")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
