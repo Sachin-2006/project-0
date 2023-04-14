@@ -7,3 +7,7 @@ class ProfileDetail(models.Model):
 	profile_pic = models.ImageField(upload_to="profile_pics")
 	bio = models.TextField()
 	
+class Follower(models.Model):
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
+	another_user = models.ManyToManyField(User,related_name="another_user")
+	
