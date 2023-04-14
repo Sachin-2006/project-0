@@ -14,7 +14,8 @@ Home!!<br>
 
 
 {% if user.is_authenticated %}
-{{user}}<br>
+{{user}}
+{{user.profile_deltails.bio}}<br>
 <a href="/logout">varuta mame durrr!!</a>
 {%else%}
 <a href="/signup">va Arunachallam!!!</a><br>
@@ -35,10 +36,12 @@ messages<br>
 Onnum illa kelambu da !!
 {% else %}
 {% for comment in p.comments.all %}
-{{comment.descr}}
+{{comment.descr}}<br>
 {% endfor %}
+
 {% endif %}
-<br>
+
+<a href="{% url 'post_comment' p.pk %}">Add comment</a><br/><br/>
 {% endfor %}
 
 

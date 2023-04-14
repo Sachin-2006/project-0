@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,13 @@
 	<title>Comment!!</title>
 </head>
 <body>
+{% if post is not None %}
+
+<img src="{% get_media_prefix %}{{post.image}}" height="100" width="100">
+{{post.description}} - by {{post.uploader}}
+{% endif  %}
+
+	<br>
 <form method="POST">
 	{% csrf_token %}
 	{{form}}

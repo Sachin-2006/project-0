@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,get_object_or_404
 from .models import *
 from .forms import AddPost,AddComment
 
@@ -14,19 +14,16 @@ def add_post(request):
 	return render(request,'post/add_post.html',context)
 
 def post_comment(request,pk):
+	current_post = get_object_or_404(Post,id=id)
 	if request.method =="POST" and request.user.is_authenticated:
 		f = AddComment(request.POST)
 		form = f.save(commit = False)
 		form.critic = request.user
-		current_post = Post.objects.get(pk=pk)
-		if current_post is not None:
-			form.post = current_post
-			form.save()
-			return redirect('/')
-		else:
-			return render(request,'404.html')
-	f = AddComment()
 
-	context = {"form":f}
+		form.post = current_post
+		form.save()
+		return redirect('/')
+	f = AddComment()
+	context = {"form":f,"post":current_post}
 	return render(request,"post/comment_post.html",context)
 
