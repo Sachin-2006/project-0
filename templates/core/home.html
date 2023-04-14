@@ -27,6 +27,14 @@ messages<br>
 {{i}}<br>
 
 {% endfor %}
+
+{% for user in all_users %}
+
+<a href="{% url 'show_profile' user.username %}">{{user.username}}</a><br>
+
+{% endfor %}
+
+
 {% for p in post %}
 <img src="{% get_media_prefix %}{{p.image}}" width="100" height="100"><br>
 
