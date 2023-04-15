@@ -4,7 +4,9 @@ from django.contrib.auth import logout,authenticate
 from django.contrib import messages
 from django.contrib.auth import login as authlogin
 from django.contrib.auth.forms import AuthenticationForm
+from core.models import Follower 
 from .forms import *
+
 
 def signup(request):
 	if request.method == "POST":
@@ -12,6 +14,9 @@ def signup(request):
 		if form.is_valid():
 			user = form.save()
 			authlogin(request,user)
+			follower_instance = Follower()
+			follower_instance.user = request.user
+			follower_instance.save()
 			messages.success(request,"super adipoli")
 			return redirect("/")
 		messages.error(request,"Sry da thabi thappu irruku")

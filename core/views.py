@@ -19,22 +19,23 @@ def home(request):
 def show_profile(request,username):
 	profile  = get_object_or_404(User,username=username)
 	user_profile = get_object_or_404(ProfileDetail,profile=profile)
-	context = {"prof":user_profile}
+	context = {"prof":user_profile,"profile":profile}
 	return render(request,"core/show_profile.html",context)
 
 
 def follow_unfollow(request,pk):
+
 	if request.method == "POST" and request.user.is_authenticated :
 		current_user = request.user
 		prof_user = get_object_or_404(User,id=pk)
-		check_follow = get_object_or_404(Follower,user=current_user)
-		
-		if prof_user in check_follow.another_user :
-			check_follow.objects.remove(prof_user)
+		user_profile = get_object_or_404(ProfileDetail,profile=prof_user)
+		check_follow = Follower.objects.get(id=pk)
+		if check_follow.another_user.exists():
+			check_follow.another_user.remove(prof_user)
 		else:
-			check_follow.objects.add(prof_user)
+			check_follow.another_user.add(prof_user)
 	
-	return HttpResponseRedirect(reverse("show_profile"))
+	return HttpResponseRedirect(reverse("show_profile",args=[user_profile]))
 
 
 
