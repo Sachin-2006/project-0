@@ -14,9 +14,6 @@ def signup(request):
 		if form.is_valid():
 			user = form.save()
 			authlogin(request,user)
-			follower_instance = Follower()
-			follower_instance.user = request.user
-			follower_instance.save()
 			messages.success(request,"super adipoli")
 			return redirect("/")
 		messages.error(request,"Sry da thabi thappu irruku")

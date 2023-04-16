@@ -38,6 +38,9 @@ def update_profile(request):
 		messages.success( request,"login First!!")
 		return redirect("/")
 
+
+#following and unfollowing users
+
 def follow_unfollow(request,pk):
 
 	if request.method == "POST" and request.user.is_authenticated :
