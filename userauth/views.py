@@ -4,7 +4,6 @@ from django.contrib.auth import logout,authenticate
 from django.contrib import messages
 from django.contrib.auth import login as authlogin
 from django.contrib.auth.forms import AuthenticationForm
-from core.models import Follower 
 from .forms import *
 
 

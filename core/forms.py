@@ -1,9 +1,8 @@
 from django import forms
-from .models import ProfileDetail
+from django.contrib.auth.forms import UserChangeForm
+from .models import User
 
-
-class ProfileDetailForm(forms.ModelForm):
+class UserUpdate(UserChangeForm):
 	class Meta:
-		model = ProfileDetail
-		fields = ["profile_pic","bio"]
-		
+		model = User
+		fields = ('username','profile_pic','bio')

@@ -4,26 +4,33 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Profile - {{prof.profile.username}}</title>
+	<title>Profile - {{prof.username}}</title>
 </head>
 <body>
 <img src="{{prof.profile_pic.url}}" height="100" width="100">
 
 <strong>{{prof.bio}}</strong><br>
-<form method="POST" action="{% url 'follow' profile.id %}">
+{% if user.id != prof.id %}
+<form method="POST" action="{% url 'follow' prof.username %}">
 	{% csrf_token %}
-	<button type="submit">Follow</button>
-	
+	{% if user in prof.following.all %}
+		<button type="submit">Unfollow</button>
+	{% else %}	
+<button type="submit">Follow</button>
+{% endif %}
 </form>
-
+{% endif %}
+-->
+<strong>{{prof.following.count}}</strong>
 <br>
-{% if request.user.id == profile.id %}
+{{request.user.id}}-{{prof.id}}
+{% if request.user.id == prof.id %}
 <form method="POST" action="{% url 'update_profile' %}">
 	{% csrf_token %}
-
 <button type="submit">Update Profile
 </button>
 </form>
+
 {% endif %}
 </body>
 </html>

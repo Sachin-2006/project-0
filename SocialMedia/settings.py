@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_USER_MODEL = "core.User"
+
 ROOT_URLCONF = 'SocialMedia.urls'
 
 TEMPLATES = [
@@ -81,7 +83,7 @@ WSGI_APPLICATION = 'SocialMedia.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'socialnetwork',
+        'NAME': 'db2',
     }
 }
 
