@@ -6,10 +6,16 @@ class ProfileDetail(models.Model):
 	profile = models.ForeignKey(User,on_delete = models.CASCADE,related_name="profile_deltails")
 	profile_pic = models.ImageField(upload_to="profile_pics", default="profile_pics/default_profile_pic.jpg")
 	bio = models.TextField(default="Hello!")
-	
+
+
+
+
 class Follower(models.Model):
 	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	another_user = models.ManyToManyField(User,related_name="a_user",blank=True)
+
+
+
 
 
 def create_follower(sender,instance,created,**kwargs):

@@ -1,9 +1,11 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from post.models import Post
-from .models import ProfileDetail,Follower
+from django.contrib import messages
 from django.contrib.auth.models import User
+from .models import ProfileDetail,Follower
+from post.models import Post
+from .forms import ProfileDetailForm
 
 def home(request):
 
@@ -22,6 +24,19 @@ def show_profile(request,username):
 	context = {"prof":user_profile,"profile":profile}
 	return render(request,"core/show_profile.html",context)
 
+def update_profile(request):
+	if request.user.is_authenticated and request.method=="POST":
+		current_user = ProfileDetail.objects.get(id=request.user.id)
+		form = ProfileDetailForm(request.POST,request.FILES ,instance=current_user)
+		if form.is_valid():
+			form.save()
+			messages.success(request,"Success!")
+			return redirect('/')
+		context = {"form":form}
+		return render(request,"core/update_profile.html",context)
+	else:
+		messages.success( request,"login First!!")
+		return redirect("/")
 
 def follow_unfollow(request,pk):
 

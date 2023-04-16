@@ -15,5 +15,15 @@
 	<button type="submit">Follow</button>
 	
 </form>
+
+<br>
+{% if request.user.id == profile.id %}
+<form method="POST" action="{% url 'update_profile' %}">
+	{% csrf_token %}
+
+<button type="submit">Update Profile
+</button>
+</form>
+{% endif %}
 </body>
 </html>
