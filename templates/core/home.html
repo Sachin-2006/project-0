@@ -1,5 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
+
 <!DOCTYPE html>
+{% block content %}
 <html>
 <head>
 	<meta charset="utf-8">
@@ -9,7 +12,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
-Home!!<br>
+
 
 
 
@@ -26,14 +29,65 @@ Home!!<br>
 messages<br>
 {% for i in messages %}
 {{i}}<br>
-
 {% endfor %}
 
-{% for user in all_users %}
 
-<a href="{% url 'show_profile' user.username %}">{{user.username}}</a><br>
 
-{% endfor %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+				    Users
+				  </a>
+				  {% for user in all_users %}
+
+				  <a href="{% url 'show_profile' user.username %}" class="list-group-item list-group-item-action">
+				  	 <img src="{{user.profile_pic.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+
+				  	{{user.username}}<br>
+				  	Following : {{user.following.count}} 
+{{prof.following.all}}
+
+				  
+				  </a>
+				  {% endfor %}
+				</div>
+			</div>
+			<div class="col-md-9">
+				 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+		{% for post in all_post %}
+				 	<div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" focusable="false">
+            	<img src="{{post.image.url}}">
+            </svg>
+            <div class="card-body">
+              <p class="card-text">{{post.description}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+               
+              </div>
+            </div>
+          </div>
+				 	</div>
+				 	{% endfor %}
+			</div>
+		</div>
+	</div>
+
+
+
+<!--
+
+
+
+
+<a href=</a><br>
+
 
 
 {% for p in post %}
@@ -53,7 +107,7 @@ Onnum illa kelambu da !!
 
 <a href="{% url 'post_comment' p.pk %}">Add comment</a><br/><br/>
 {% endfor %}
-
-
+-->
 </body>
 </html>
+{% endblock %}

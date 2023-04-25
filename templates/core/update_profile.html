@@ -6,12 +6,12 @@
 	<title>Update Profile</title>
 </head>
 <body>
-<form method="POST" action="" enctype=multipart/form-data>
+<form method="POST" enctype=multipart/form-data>
 	{% csrf_token %}
-{{form.as_p}}
-	<button type="submit">
-		Update!
-	</button>
+<label>{{form.username.label}}</label>
+{{form.username}}
+<label>{{form.profile_pic.label}}</label>{{form.profile_pic}}
+<input type="submit" value="Update" class="btn btn-dark">
 </form>
 </body>
 </html>

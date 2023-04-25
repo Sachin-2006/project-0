@@ -10,6 +10,11 @@
 <img src="{{prof.profile_pic.url}}" height="100" width="100">
 
 <strong>{{prof.bio}}</strong><br>
+<form method="POST" action="{% url 'chatbox' prof %}">
+{% csrf_token %}
+
+	<button >Message</button>
+</form>
 {% if user.id != prof.id %}
 <form method="POST" action="{% url 'follow' prof.username %}">
 	{% csrf_token %}
@@ -23,6 +28,8 @@
 -->
 <strong>{{prof.following.count}}</strong>
 <br>
+<form method="POST" action="{% url 'show_profile' prof %}">{% csrf_token %}<button type="submit">Hello</button></form>
+
 {{request.user.id}}-{{prof.id}}
 {% if request.user.id == prof.id %}
 <form method="POST" action="{% url 'update_profile' %}">
@@ -30,7 +37,8 @@
 <button type="submit">Update Profile
 </button>
 </form>
-
 {% endif %}
 </body>
 </html>
+
+

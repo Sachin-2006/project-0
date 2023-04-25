@@ -12,7 +12,7 @@ class Like(models.Model):
 
 class Post(models.Model):
 	uploader = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE)
-	image = models.ImageField(null = True,blank=True,upload_to = "")
+	image = models.ImageField(null = True,blank=True,upload_to = "",default="profile_pics/default_profile_pic.jpg")
 	description = models.TextField()
 	likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name="post_like")
 

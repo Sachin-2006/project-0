@@ -12,7 +12,7 @@ def home(request):
 		current_user = request.user
 	all_posts = Post.objects.all()
 	all_users = User.objects.all()
-	context = {"user":request.user,"post":all_posts,"all_users":all_users}
+	context = {"user":request.user,"all_post":all_posts,"all_users":all_users}
 
 	return render(request,"core/home.html",context)
 
@@ -26,6 +26,7 @@ def update_profile(request):
 	if request.user.is_authenticated and request.method=="POST":
 		current_user = User.objects.get(id=request.user.id)
 		form = UserUpdate(request.POST,request.FILES,instance=current_user)
+		
 		if form.is_valid():
 			form.save()
 			return redirect('/')
@@ -45,7 +46,9 @@ def follow_unfollow(request,username):
 
 	if username != current_user.username:
 		if current_user in following:
+			print("follow")
 			user.following.remove(current_user.id)
 		else:
+			
 			user.following.add(current_user.id)
 	return HttpResponseRedirect(reverse("show_profile",args=[user.username]))

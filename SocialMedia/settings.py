@@ -38,10 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'channels',
     'post',
     'core',
     'userauth',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +76,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SocialMedia.wsgi.application'
-
+ASGI_APPLICATION = "SocialMedia.routing.application"
+CHANNEL_LAYERS = {
+    'default':{
+    'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

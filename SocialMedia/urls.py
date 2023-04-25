@@ -24,6 +24,7 @@ urlpatterns = [
     path('',include("userauth.urls")),
     path('',include("core.urls")),
     path('',include("post.urls")),
+    path('',include("chat.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
