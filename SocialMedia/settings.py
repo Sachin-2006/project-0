@@ -38,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'chat',
     'channels',
     'post',
     'core',
     'userauth',
-    'chat',
+    'rest_framework',
+    
 ]
 
 MIDDLEWARE = [
@@ -75,14 +78,15 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'SocialMedia.wsgi.application'
-ASGI_APPLICATION = "SocialMedia.routing.application"
+ASGI_APPLICATION = "SocialMedia.asgi.application"
 CHANNEL_LAYERS = {
-    'default':{
-    'BACKEND':'channels.layers.InMemoryChannelLayer'
-    }
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
 }
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -142,3 +146,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"db_images")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SECURE_SSL_REDIRECT=False
+SESSION_COOKIE_SECURE=False
+CSRF_COOKIE_SECURE=False
+

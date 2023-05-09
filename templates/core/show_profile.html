@@ -10,11 +10,7 @@
 <img src="{{prof.profile_pic.url}}" height="100" width="100">
 
 <strong>{{prof.bio}}</strong><br>
-<form method="POST" action="{% url 'chatbox' prof %}">
-{% csrf_token %}
 
-	<button >Message</button>
-</form>
 {% if user.id != prof.id %}
 <form method="POST" action="{% url 'follow' prof.username %}">
 	{% csrf_token %}

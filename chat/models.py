@@ -2,7 +2,7 @@ from django.db import models
 from core.models import User
 from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
-
+from channels.db import database_sync_to_async
 
 class ChatModel(models.Model):
 	c_user = models.ForeignKey(User,on_delete=models.CASCADE,default=0)
@@ -17,10 +17,12 @@ class ChatModel(models.Model):
 			super(ChatModel, self).save(*args, **kwargs)
 
 
-
-
 class Message(models.Model):
-	cm = models.ForeignKey(ChatModel,on_delete=models.CASCADE)
-	data = models.CharField(max_length=100000)
-	date = models.DateTimeField(auto_now_add=True)
-	
+	sender = models.ForeignKey(User,on_delete=models.CASCADE,related_name="sender")
+	receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+	room_name = models.CharField(max_length=100)
+	message = models.CharField(max_length=200)
+	timestamp = models.DateTimeField(auto_now_add=True)
+	class Meta :
+		ordering = ('timestamp',)
+

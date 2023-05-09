@@ -49,7 +49,7 @@ messages<br>
 				  	Following : {{user.following.count}} 
 {{prof.following.all}}
 
-				  
+				  <a href="{% url 'chat-page' user.username %}">Chat!!</a>
 				  </a>
 				  {% endfor %}
 				</div>
