@@ -22,7 +22,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.chat_room_name ,
             self.channel_layer
         )
-
+        raise StopConsumer()
     
     async def receive(self, text_data):
         print(self.chat_room_name)

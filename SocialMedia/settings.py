@@ -1,4 +1,4 @@
-#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
+#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
 """
 Django settings for SocialMedia project.
 
@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,13 +24,21 @@ SECRET_KEY = 'django-insecure-i6+(ww1ej23h6r4$h+d=i#4vna^*_6)&u*hjm3gn)9f$5=eqvv
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = ["https://e13c-157-51-107-17.ngrok-free.app"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    
+    'chat.apps.ChatConfig',
+    'channels',
+    'post',
+    'core',
+    'userauth',
+    'rest_framework',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,12 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'chat',
-    'channels',
-    'post',
-    'core',
-    'userauth',
-    'rest_framework',
+
     
 ]
 
@@ -141,6 +143,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"db_images")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
