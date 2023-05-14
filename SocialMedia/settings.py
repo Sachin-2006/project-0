@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     
-    'chat.apps.ChatConfig',
+    'chat',
     'channels',
     'post',
     'core',
