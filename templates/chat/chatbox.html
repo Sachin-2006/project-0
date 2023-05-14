@@ -29,10 +29,8 @@
 
     <script>
         var st = {{room_name_json}}
-        const chatSocket = new WebSocket(
-            'ws://' + window.location.host +
-            '/ws/chat/'+encodeURIComponent(st)+'/'
-        );
+        const chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+st+'/');
+        console.log()
     chatSocket.onopen = function (e) {
         console.log("The connection was setup successfully !");
     };

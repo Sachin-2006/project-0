@@ -24,7 +24,6 @@ SECRET_KEY = 'django-insecure-i6+(ww1ej23h6r4$h+d=i#4vna^*_6)&u*hjm3gn)9f$5=eqvv
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-CSRF_TRUSTED_ORIGINS = []
 ALLOWED_HOSTS = ["*"]
 
 
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
     'core',
     'userauth',
     'rest_framework',
+    'channels_redis',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -85,7 +85,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [("localhost", 6379)],
         },
     },
 }
