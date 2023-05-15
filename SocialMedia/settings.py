@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'core',
     'userauth',
     'rest_framework',
-    'channels_redis',
+    
 
     'django.contrib.admin',
     'django.contrib.auth',
