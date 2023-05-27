@@ -10,3 +10,11 @@ class AddComment(ModelForm):
 	class Meta:
 		model = Comment
 		fields = ["descr"]
+
+class UpdatePost(ModelForm):
+	class Meta: 
+		model = Post
+		fields = ["image",
+		"description",
+
+		]

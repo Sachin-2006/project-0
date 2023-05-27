@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
-from .forms import AddPost,AddComment
+from .forms import AddPost,AddComment,UpdatePost
 from django.http import HttpResponseRedirect,JsonResponse,HttpResponse,HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -31,6 +31,18 @@ def post_comment(request,pk):
 	f = AddComment()
 	context = {"form":f,"post":current_post}
 	return render(request,"post/comment_post.html",context)
+
+def update_post(request,pk):
+	current_post = get_object_or_404(Post,id=pk)
+	if request.method == "POST":
+		form = UpdatePost(request.POST,request.FILES,instance=current_post)
+		if form.is_valid():
+			form.save()
+
+	else:
+		form = UpdatePost(instance=current_post)
+	context = {"form":form}
+	return render(request,"post/update_post.html",context)
 
 @csrf_exempt
 def post_like(request):

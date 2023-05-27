@@ -52,3 +52,9 @@ def follow_unfollow(request,username):
 			
 			user.following.add(current_user.id)
 	return HttpResponseRedirect(reverse("show_profile",args=[user.username]))
+
+#stories
+
+
+def stories(request):
+	pass

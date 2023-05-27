@@ -16,12 +16,14 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+TIME_ZONE = 'Asia/Kolkata'
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-i6+(ww1ej23h6r4$h+d=i#4vna^*_6)&u*hjm3gn)9f$5=eqvv'
-
+CSRF_TRUSTED_ORIGINS = ["https://264b-2401-4900-4acd-7a07-b63c-2566-119b-6fc6.ngrok-free.app"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ["*"]

@@ -1,156 +1,167 @@
-{%load static%}
-{% load img_url %}
-<!DOCTYPE html>
-<html>
-<head></head>
-<title>Chat Room</title>
-<link href="{% static 'css/chat.css' %}" type="stylesheet">
-<style>
-    
+    {%load static%}
+    {% load img_url %}
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <title>Chat Room</title>
+    <link href="{% static 'css/chat.css' %}" type="stylesheet">
+    <style>
+        
 
-    body {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 0 20px;
-}
+        body {
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 0 20px;
+    }
 
-.container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
-}
+    .container {
+      border: 2px solid #dedede;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px 0;
+    }
 
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
-}
+    .darker {
+      border-color: #ccc;
+      background-color: #ddd;
+    }
 
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+    .container::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
 
-.container img {
-  float: left;
-  max-width: 60px;
-  width: 100%;
-  margin-right: 20px;
-  border-radius: 50%;
-}
+    .container img {
+      float: left;
+      max-width: 60px;
+      width: 100%;
+      margin-right: 20px;
+      border-radius: 50%;
+    }
 
-.container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
+    .container img.right {
+      float: right;
+      margin-left: 20px;
+      margin-right:0;
+    }
 
-.time-right {
-  float: right;
-  color: #aaa;
-}
+    .time-right {
+      float: right;
+      color: #aaa;
+    }
 
-.time-left {
-  float: left;
-  color: #999;
-}
-</style>
-<body>
-    <center><h1>Hello , Welcome to my chat site ! {{request.user}} - {{room_name_json}}</h1></center>
-    <br>
-    {% if request.user.is_authenticated %}
-    <center> Logout the chat Page <a href = "{% url 'logout' %}">Logout</a></center>
-    {% endif %}
-    <div class="container">
-  <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-  <p>Hello. How are you today?</p>
-  <span class="time-right">11:00</span>
-</div>
-    <div
-    class="chat__item__container"
-    id="id_chat_item_container"
-    style="font-size: 20px"
-    >
-            {% for message in messages %}
-        {% if message.sender == request.user %}
-            <div class="container">
-  <img src="{{message.sender.profile_pic.url}}" alt="Avatar" class="right" style="width:100%;">
-  <p>{{message.message}}</p>
-  <span class="time-left">{{message.timestamp}}</span>
-</div>
-        {% else %}
-        <div class="container">
-  <img src="{{message.sender.profile_pic.url}}" alt="Avatar" style="width:100%;">
-  <p>{{message.message}}</p>
-  <span class="time-right">{{message.timestamp}}</span>
-</div>
+    .time-left {
+      float: left;
+      color: #999;
+    }
+    </style>
+    <body>
+        <center><h1>Hello , Welcome to my chat site ! {{request.user}} - {{room_name_json}}</h1></center>
+        <br>
+        {% if request.user.is_authenticated %}
+        <center> Logout the chat Page <a href = "{% url 'logout' %}">Logout</a></center>
         {% endif %}
-       
-        {% endfor %}
-    <br />
+        <div class="container">
+      <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+      <p>Hello. How are you today?</p>
+      <span class="time-right">11:00</span>
     </div>
-    <input type="text" id="id_message_send_input" />
-    <button type="submit" id="id_message_send_button">Send Message</button>
-    <br />
-    <br />
-    
+        <div
+        class="chat__item__container"
+        id="id_chat_item_container"
+        style="font-size: 20px"
+        >
+                {% for message in messages %}
+            {% if message.sender == request.user %}
+                <div class="container">
+      <img src="{{message.sender.profile_pic.url}}" alt="Avatar" class="right" style="width:100%;">
+      <p>{{message.message}}</p>
+      <span class="time-left">{{message.timestamp}}</span>
+    </div>
+            {% else %}
+            <div class="container">
+      <img src="{{message.sender.profile_pic.url}}" alt="Avatar" style="width:100%;">
+      <p>{{message.message}}</p>
+      <span class="time-right">{{message.timestamp}}</span>
+    </div>
+            {% endif %}
+           
+            {% endfor %}
+        <br />
+        </div>
+        <input type="text" id="id_message_send_input" />
+        <button type="submit" id="id_message_send_button">Send Message</button>
+        <br />
+        <br />
+        
 
 
-    <script>
-        var st = {{room_name_json}}
-        const chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+st+'/');
-        console.log()
-    chatSocket.onopen = function (e) {
-        console.log("The connection was setup successfully !");
-    };
-    chatSocket.onclose = function (e) {
+        <script>
+            var st = {{room_name_json}}
+            const chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+st+'/');
+            console.log()
+        chatSocket.onopen = function (e) {
+            console.log("The connection was setup successfully !");
+        };
+        chatSocket.onclose = function (e) {
 
-        console.log(e.code);
-    };
-    document.querySelector("#id_message_send_input").focus();
-    document.querySelector("#id_message_send_input").onkeyup = function (e) {
-        if (e.keyCode == 13) {
-        document.querySelector("#id_message_send_button").click();
-        }
-    };
-    document.querySelector("#id_message_send_button").onclick = function (e) {
-        var messageInput = document.querySelector(
-        "#id_message_send_input"
-        ).value;
-        chatSocket.send(JSON.stringify({ message: messageInput, sender : "{{request.user.username}}",receiver:"{{receiver}}"}));
-    };
-    chatSocket.onmessage = function (e) {
-        const data = JSON.parse(e.data);
-        console.log(data)
-        var div = document.createElement("div");
-        div.setAttribute("class","container")
-        var str;
-        var is_left;
-        var url;
-        if (data.sender == '{{request.user.username}}'){
-            str = "time-left"
-            is_left = "right"
-            url = ""
-                    div.innerHTML = `            
-  <img src="{{request.user.username|url}}" alt="Avatar" class="right" style="width:100%;">
-  <p>`+data.message+`</p>
-  
-`
-        }else{
-            str = "time-right"
-            is_left = ""
-                    div.innerHTML = `            
-  <img src="{{receiver|url}}" alt="Avatar"  style="width:100%;">
-  <p>`+data.message+`</p>
-`
-        }
+            console.log(e.code);
+        };
+        document.querySelector("#id_message_send_input").focus();
+        document.querySelector("#id_message_send_input").onkeyup = function (e) {
+            if (e.keyCode == 13) {
+            document.querySelector("#id_message_send_button").click();
+            }
+        };
+        document.querySelector("#id_message_send_button").onclick = function (e) {
+            var messageInput = document.querySelector(
+            "#id_message_send_input"
+            ).value;
+            chatSocket.send(JSON.stringify({ message: messageInput, sender : "{{request.user.username}}",receiver:"{{receiver}}"}));
+        };
+        chatSocket.onmessage = function (e) {
+            var messageInput = document.querySelector(
+            "#id_message_send_input"
+            );
+            var inputValue = messageInput.value;
+            const data = JSON.parse(e.data);
+            console.log(data)
+            var div = document.createElement("div");
+            div.setAttribute("class","container")
+            var str;
+            var is_left;
+            var url;
+            if (data.sender == '{{request.user.username}}'){
+                str = "time-left"
+                is_left = "right"
+                url = ""
+                        div.innerHTML = `            
+      <img src="{{request.user.username|url}}" alt="Avatar" class="right" style="width:100%;">
+      <p>`+data.message+`</p>
+      
+    `
+            }else{
+                str = "time-right"
+                is_left = ""
+                        div.innerHTML = `            
+      <img src="{{receiver|url}}" alt="Avatar"  style="width:100%;">
+      <p>`+data.message+`</p>
+    `
+            }
 
 
-        document.querySelector("#id_message_send_input").value = "";
-        document.querySelector("#id_chat_item_container").appendChild(div);
-    };
-    </script>
-</body>
-</html>
+            
+            document.querySelector("#id_chat_item_container").appendChild(div);
+            if (data.sender == '{{request.user.username}}'){
+            messageInput.value = "";    
+            }
+            else{
+                messageInput.value = inputValue;
+            }
+            
+        };
+        </script>
+    </body>
+    </html>

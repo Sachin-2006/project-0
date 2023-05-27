@@ -9,10 +9,65 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Hello!!</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<script src="{% static 'js/home.js' %}">
+	<script src="{% static 'js/slide-stories.js'  %}"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
 
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 layout-spacing">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4 class="pb-0">Stories</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="content_1" class="tabcontent story-area"> 
+                                <div class="story-container-1">
+                                    <div class="single-create-story">
+                                        <img src="{{request.user.profile_pic.url}}" class="single-create-story-bg">
+                                        <div class="create-story-author">
+                                            <i class="fa fa-plus-circle fa-2x text-info"></i>
+                                            <p>Create a story</p>
+                                        </div>
+                                    </div>
+                                    {% for user in all_users %}
+                                    <div class="single-story">
+                                          <img src="{{user.profile_pic.url}}" alt="Image" onclick="openModal()">
+                                        <div class="story-author">
+                                            <img src="{{user.profile_pic.url}}" alt="Image" onclick="openModal()">
+                                            <p>{{user.username}}</p>
+                                        </div>
+                                    </div>
+                                      <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img src="{{user.profile_pic.url}}" alt="Image">
+    </div>
+  </div>
+{% endfor %}
+                                    
+
+                        
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -31,7 +86,7 @@ messages<br>
 {{i}}<br>
 {% endfor %}
 
-
+  
 
 	<div class="container-fluid">
 		<div class="row">
@@ -66,9 +121,9 @@ messages<br>
               <p class="card-text">{{post.description}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
+                  <a href="{% url 'post_comment' post.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <a href="{% url 'update_post' post.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </a></div>
                
               </div>
             </div>

@@ -10,3 +10,8 @@ class User(AbstractUser):
 	def is_mutual(self,another_user):
 		return self in another_user.following.all() and another_user in self.following.all()
 		
+class Story(models.Model):
+	creator = models.ForeignKey(User,on_delete=models.CASCADE)
+	story_image = models.ImageField(upload_to="stories",null=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	delete_time = models.DateTimeField(null=True,blank=True)
