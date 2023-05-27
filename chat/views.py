@@ -11,16 +11,27 @@ from urllib.parse import quote
 import json
 
 def chatPage(request,username):
+
 	user = User.objects.get(username=username)
-	if user.id < request.user.id:
-		username = "chat"+str(user.username)+"_"+str(request.user.username)
+	if request.user.is_mutual(user):
+
+		if user.id < request.user.id:
+			username = "chat"+str(user.username)+"_"+str(request.user.username)
+		else:
+			username = "chat"+str(request.user.username)+"_"+str(user.username)
+		user_chat_name = mark_safe(quote(username))
+		messages = Message.objects.filter(room_name=user_chat_name)
+		
+		context = {'room_name_json' : mark_safe(json.dumps(str(user_chat_name))),
+		"receiver":str(user),
+		"messages":messages
+		}
 	else:
-		username = "chat"+str(request.user.username)+"_"+str(user.username)
-	user_chat_name = mark_safe(quote(username))
-	messages = Message.objects.filter(room_name=user_chat_name)
-	
-	context = {'room_name_json' : mark_safe(json.dumps(str(user_chat_name))),
-	"receiver":str(user),
-	"messages":messages
-	}
+		return redirect('/')
 	return render(request, "chat/chatbox.html", context)
+
+
+def chatlist(request,username):
+	user = User.objects.get(username=username)
+	context = {"follow":user.followers.all}
+	return render(request,"chat/chatlist.html",context)
