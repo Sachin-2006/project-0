@@ -21,17 +21,20 @@ def chatPage(request,username):
 			username = "chat"+str(request.user.username)+"_"+str(user.username)
 		user_chat_name = mark_safe(quote(username))
 		messages = Message.objects.filter(room_name=user_chat_name)
-		
+		lst =[]
+		user1 = request.user
+		followers = user1.followers.all()
+		for i in followers:
+			print(i)
+			u = User.objects.get(username=i)
+			if u.is_mutual(user1):
+				lst.append(u)
 		context = {'room_name_json' : mark_safe(json.dumps(str(user_chat_name))),
 		"receiver":str(user),
-		"messages":messages
+		"messages":messages,
+		"follow":lst,
 		}
 	else:
 		return redirect('/')
 	return render(request, "chat/chatbox.html", context)
 
-
-def chatlist(request,username):
-	user = User.objects.get(username=username)
-	context = {"follow":user.followers.all}
-	return render(request,"chat/chatlist.html",context)

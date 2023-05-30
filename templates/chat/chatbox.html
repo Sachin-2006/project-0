@@ -163,5 +163,8 @@
             
         };
         </script>
+        {% for follower in follow %}
+        <a href="{% url 'chat-page' follower %}">{{follower}}</a><br>
+        {% endfor %}
     </body>
     </html>
