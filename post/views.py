@@ -57,8 +57,10 @@ def post_like(request):
 			print(post)
 			if post.likes.filter(id=request.user.id):
 				post.likes.remove(request.user)
+				add = False
 				print(4)
 			else:
+				add = True
 				post.likes.add(request.user)
 			print(5)
 			context = {'content_id':request.POST.get("content_id",None)}

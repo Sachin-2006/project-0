@@ -1,18 +1,10 @@
-function openModal() {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "block";
-    }
-
-    // Function to close the modal
-    function closeModal() {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "none";
-    }
-
-    // Close the modal when the user clicks anywhere outside of it
-    window.onclick = function (event) {
-      var modal = document.getElementById("myModal");
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    };
+function openPopup(imageSrc) {
+  var popup = document.getElementById('myModal');
+  var popupImage = document.getElementById('popupImage');
+  popup.style.display = 'block';
+  popupImage.src = imageSrc;
+}
+function closepop(){
+var popup = document.getElementById('myModal');
+    popup.style.display = 'none';
+}

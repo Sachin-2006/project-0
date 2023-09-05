@@ -19,10 +19,12 @@
 
 	<br>
 
-	<a name="{{ post.id }}" style="font-size:48px;color: blue;" class="likin" id="co"><i class="fa fa-thumbs-up" aria-hidden="true"><button >Lie</button>{{post.total_like}}</i></a>
-
-
-	
+	<a name="{{ post.id }}" style="font-size:48px;color: blue;" class="likin" id="co"><i class="fa fa-thumbs-up" aria-hidden="true"><button >Like</button>
+  {{post.total_like}}</i></a>
+{% if user in post.like %}
+s!{% else %}
+erewrw
+{% endif %}	
 <form method="POST">
 	{% csrf_token %}
 	{{form}}
