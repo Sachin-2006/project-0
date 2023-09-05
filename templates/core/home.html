@@ -10,7 +10,6 @@
 	<title>Hello!!</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 	<script src="{% static 'js/home.js' %}">
-	<script src="{% static 'js/slide-stories.js'  %}"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
@@ -26,17 +25,15 @@
 
   
 
-	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-3">
-				<div class="list-group">
-				  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+			
+				
+				  <a href="#" >
 				    Users
 				  </a>
 				  {% for user in all_users %}
 
-				  <a href="{% url 'show_profile' user.username %}" class="list-group-item list-group-item-action">
-				  	 <img src="{{user.profile_pic.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+				  <a href="{% url 'show_profile' user.username %}">
 
 				  	{{user.username}}<br>
 				  	Following : {{user.following.count}} 
@@ -45,45 +42,37 @@
 				  <a href="{% url 'chat-page' user.username %}">Chat!!</a>
 				  </a>
 				  {% endfor %}
-				</div>
-			</div>
-			<div class="col-md-9">
-				 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+				
+			
+			<div >
+				 <div >
 		{% for post in all_post %}
-				 	<div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" focusable="false">
+				 	
+         
+            <svg  focusable="false">
             	<img src="{{post.image.url}}">
             </svg>
             <div class="card-body">
               <p class="card-text">{{post.description}}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a href="{% url 'post_comment' post.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                  <a href="{% url 'update_post' post.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <a href="{% url 'post_comment' post.id %}"><button type="button">View</button></a>
+                  <a href="{% url 'update_post' post.id %}"><button type="button">Edit</button>
                 </a>
                 <a name="{{ post.id }}" class="likin" id="co">
                 {% if user in post.likes.all %}
-                <button class="btn btn-sm btn-outline-danger" id="like-button" type="button" >
+                <button   type="button" >
                 Unlike
             {% else %}
-            <button onclick="changecolour()" class="btn btn-sm btn-outline-success" type="button" >
-
+            <button onclick="changecolour()"  type="button" >
             Like
             {% endif %}
-            </button>{{post.total_like}}</a>
-
+            </button>{{post.total_like}}</a>    
             </div>
-               
-              </div>
-            </div>
-          </div>
-				 	</div>
+         
+				 
 				 	{% endfor %}
 			</div>
 		</div>
-	</div>
-
+	
 
 
 <!--
